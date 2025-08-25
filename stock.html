@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/stock.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar izquierdo -->
+    <aside class="sidebar">
+      <div class="user-info">
+        <h3>Juan Pérez</h3>
+        <p>Administrador</p>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="dashboard.html">Inicio</a></li>
+          <li><a href="stock.html">Stock</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="reportes.html">Reportes</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="index.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <div class="stock-container">
+    <h1>Stock de Materiales</h1>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Buscar material..." onkeyup="buscarMaterial()" />
+      <a href="#" class="btn btn-add">📄 Generar reporte</a>
+    </div>
+
+    <!-- Tabla de materiales -->
+    <table id="tabla-stock">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Unidad</th>
+          <th>Cantidad</th>
+          <th>Almacenado en</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cemento IP30</td>
+          <td>Bolsa 50kg</td>
+          <td>120</td>
+          <td>Depósito La Paz</td>
+        </tr>
+        <tr>
+          <td>Arena Fina</td>
+          <td>m³</td>
+          <td>35</td>
+          <td>Depósito La Paz</td>
+        </tr>
+        <tr>
+          <td>Arena Corriente</td>
+          <td>m³</td>
+          <td>25</td>
+          <td>Depósito La Paz</td>
+        </tr>
+        <tr>
+          <td>Ladrillo Hueco</td>
+          <td>Unidades</td>
+          <td>5,000</td>
+          <td>Depósito El Alto</td>
+        </tr>
+        <tr>
+          <td>Hierro Corrugado 3/8"</td>
+          <td>Barras 6m</td>
+          <td>250</td>
+          <td>Depósito El Alto</td>
+        </tr>
+        <tr>
+          <td>Hierro Corrugado 1/2"</td>
+          <td>Barras 6m</td>
+          <td>35</td>
+          <td>Depósito El Alto</td>
+        </tr>
+        <tr>
+          <td>Hierro Corrugado 5/8"</td>
+          <td>Barras 6m</td>
+          <td>45</td>
+          <td>Depósito El Alto</td>
+        </tr>
+        <!-- Puedes agregar más filas aquí -->
+      </tbody>
+    </table>
+  </div>
+    </main>
+  </div>
+</body>
+</html>

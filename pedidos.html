@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/pedidos.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar izquierdo -->
+    <aside class="sidebar">
+      <div class="user-info">
+        <h3>Juan Pérez</h3>
+        <p>Administrador</p>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="dashboard.html">Inicio</a></li>
+          <li><a href="stock.html">Stock</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="reportes.html">Reportes</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="index.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <div class="pedidos-container">
+    <h1>Pedidos de Materiales</h1>
+
+    <!-- Barra de búsqueda -->
+    <div class="top-bar">
+      <input type="text" id="search" placeholder="Buscar pedido..." onkeyup="buscarPedido()" />
+      <a href="#" class="btn btn-add">+ Agregar pedido</a>
+    </div>
+
+        <!-- Modal de Agregar Pedido -->
+<div id="modal-pedido" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <h2>Nuevo Pedido</h2>
+
+    <form id="form-pedido">
+      <table id="tabla-materiales">
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Unidad</th>
+            <th>Cantidad</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-materiales">
+          <tr>
+            <td><input type="text" name="material[]" required></td>
+            <td><input type="text" name="unidad[]" required></td>
+            <td><input type="number" name="cantidad[]" required></td>
+            <td><button type="button" onclick="eliminarFila(this)">🗑️</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button type="button" onclick="agregarFila()" class="btn-sm">+ Agregar fila</button>
+      <button type="submit" class="btn-add">Guardar Pedido</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Abrir modal
+  document.querySelector('.btn-add').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('modal-pedido').style.display = 'block';
+  });
+
+  // Cerrar modal
+  function cerrarModal() {
+    document.getElementById('modal-pedido').style.display = 'none';
+  }
+
+  // Cerrar si se hace clic fuera del contenido del modal
+  window.onclick = function (event) {
+    const modal = document.getElementById('modal-pedido');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  // Acción al enviar (puedes reemplazarla con tu lógica)
+  document.getElementById('form-pedido').addEventListener('submit', function (e) {
+    e.preventDefault();
+    alert('Pedido guardado (simulado)');
+    cerrarModal();
+    this.reset(); // limpia los campos
+  });
+</script>
+
+    <!-- Tabla de pedidos -->
+    <table id="tabla-pedidos">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Código</th>
+          <th>Fecha del pedido</th>
+          <th>Acción</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>PD-00123</td>
+          <td>2025-07-01</td>
+          <td>
+            <a href="#" class="btn-sm" onclick="abrirModalAlmacenado()">Ver Detalle</a>
+            <a href="#" class="btn-sm">Cotizar</a>
+            <a href="#" class="btn-sm">Autorizar Compra</a>
+            <a href="#" class="btn-sm">Almacenar</a>
+          </td>
+          <td style="color: gray;">Almacenado</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>PD-00124</td>
+          <td>2025-07-02</td>
+          <td>
+            <a href="#" class="btn-sm" onclick="abrirModalCotizado()">Ver Detalle</a>
+            <a href="#" class="btn-sm">Cotizar</a>
+            <a href="#" class="btn-sm">Autorizar Compra</a>
+            <a href="#" class="btn-sm" onclick="abrirModalAlmacenar()">Almacenar</a>
+          </td>
+          <td style="color: gray;">Autorizado</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>PD-00125</td>
+          <td>2025-07-03</td>
+          <td>
+            <a href="#" class="btn-sm" onclick="abrirModalCotizado()">Ver Detalle</a>
+            <a href="#" class="btn-sm">Cotizar</a>
+            <a href="#" class="btn-sm" onclick="abrirModalAutorizar()">Autorizar Compra</a>
+            <a href="#" class="btn-sm" >Almacenar</a>
+          </td>
+          <td style="color: gray;">Cotizado</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>PD-00126</td>
+          <td>2025-07-04</td>
+          <td>
+            <a href="#" class="btn-sm" onclick="abrirModalDetalle()">Ver Detalle</a>
+            <a href="#" class="btn-sm" onclick="abrirModalCotizacion()">Cotizar</a>
+            <a href="#" class="btn-sm">Autorizar Compra</a>
+            <a href="#" class="btn-sm">Almacenar</a>
+          </td>
+          <td style="color: gray;">Solicitado</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ 
+    </main>
+  </div>
+
+   <!-- Modal: Ver Detalle del Pedido -->
+<div id="modal-detalle" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalDetalle()">&times;</span>
+    <h2>Detalle del Pedido</h2>
+
+    <table class="detalle-tabla">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Material</th>
+          <th>Unidad</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Cemento</td>
+          <td>Bolsa</td>
+          <td>50</td>
+
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Arena</td>
+          <td>m³</td>
+          <td>20</td>
+
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Hierro</td>
+          <td>kg</td>
+          <td>150</td>
+
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Ladrillo</td>
+          <td>Unidad</td>
+          <td>1000</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  function abrirModalDetalle() {
+    document.getElementById("modal-detalle").style.display = "block";
+  }
+
+  function cerrarModalDetalle() {
+    document.getElementById("modal-detalle").style.display = "none";
+  }
+
+  // También cerrar al hacer clic fuera del modal
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById("modal-detalle");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+   <!-- Modal: Cotizar Pedido -->
+<div id="modal-cotizacion" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalCotizacion()">&times;</span>
+    <h2>Detalle del Pedido</h2>
+
+    <table class="detalle-tabla">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Material</th>
+          <th>Unidad</th>
+          <th>Cantidad</th>
+          <th>Precio (Bs)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Cemento</td>
+          <td>Bolsa</td>
+          <td>50</td>
+          <td><input type="text" value=""></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Arena</td>
+          <td>m³</td>
+          <td>20</td>
+          <td><input type="text" value=""></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Hierro</td>
+          <td>kg</td>
+          <td>150</td>
+          <td><input type="text" value=""></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Ladrillo</td>
+          <td>Unidad</td>
+          <td>1000</td>
+          <td><input type="text" value=""></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="submit" class="btn-add" onclick="cerrarModalCotizacion()">Cotizar</button>
+  </div>
+</div>
+<script>
+  function abrirModalCotizacion() {
+    document.getElementById("modal-cotizacion").style.display = "block";
+  }
+
+  function cerrarModalCotizacion() {
+    document.getElementById("modal-cotizacion").style.display = "none";
+  }
+
+  // También cerrar al hacer clic fuera del modal
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById("modal-cotizacion");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+   <!-- Modal: Pedido cotizado -->
+<div id="modal-cotizado" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalCotizado()">&times;</span>
+    <h2>Detalle del Pedido</h2>
+
+    <table class="detalle-tabla">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Material</th>
+          <th>Unidad</th>
+          <th>Cantidad</th>
+          <th>Precio (Bs)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Cemento</td>
+          <td>Bolsa</td>
+          <td>50</td>
+          <td><input type="text" value="3000"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Arena</td>
+          <td>m³</td>
+          <td>20</td>
+          <td><input type="text" value="2500"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Hierro</td>
+          <td>kg</td>
+          <td>150</td>
+          <td><input type="text" value="1800"></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Ladrillo</td>
+          <td>Unidad</td>
+          <td>1000</td>
+          <td><input type="text" value="4500"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  function abrirModalCotizado() {
+    document.getElementById("modal-cotizado").style.display = "block";
+  }
+
+  function cerrarModalCotizado() {
+    document.getElementById("modal-cotizado").style.display = "none";
+  }
+
+  // También cerrar al hacer clic fuera del modal
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById("modal-cotizado");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+   <!-- Modal: Almacenar -->
+<div id="modal-almacenar" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalAlmacenar()">&times;</span>
+    <h2>Detalle del Almacén</h2>
+
+     <form class="form-reportes">
+    <div class="form-group">
+      <label for="proyecto">Almacen:</label>
+      <select id="proyecto" name="proyecto" required>
+        <option value="" disabled selected>Selecciona un lugar</option>
+        <option value="proyecto1">Depósito La Paz</option>
+        <option value="proyecto2">Depósito El Alto</option>
+        <option value="proyecto2">Obra: Edificio Anexo UPEA</option>
+        <option value="proyecto2">Obra: Edificio Grand River</option>
+      </select>
+    </div>
+    <button type="submit" class="btn-add" onclick="cerrarModalAlmacenar()">Almacenar</button>
+</div>
+
+
+
+  </div>
+</div>
+<script>
+  function abrirModalAlmacenar() {
+    document.getElementById("modal-almacenar").style.display = "block";
+  }
+
+  function cerrarModalAlmacenar() {
+    document.getElementById("modal-almacenar").style.display = "none";
+  }
+
+  // También cerrar al hacer clic fuera del modal
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById("modal-almacenar");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+   <!-- Modal: Almacenado -->
+<div id="modal-almacenado" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalAlmacenado()">&times;</span>
+    <h2>Detalle del Pedido</h2>
+
+    <table class="detalle-tabla">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Material</th>
+          <th>Unidad</th>
+          <th>Cantidad</th>
+          <th>Precio (Bs)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Cemento</td>
+          <td>Bolsa</td>
+          <td>50</td>
+          <td><input type="text" value="3000"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Arena</td>
+          <td>m³</td>
+          <td>20</td>
+          <td><input type="text" value="2500"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Hierro</td>
+          <td>kg</td>
+          <td>150</td>
+          <td><input type="text" value="1800"></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Ladrillo</td>
+          <td>Unidad</td>
+          <td>1000</td>
+          <td><input type="text" value="4500"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Almacenado en: </h3>
+    <h4>Depósito La Paz</h4>
+  </div>
+</div>
+<script>
+  function abrirModalAlmacenado() {
+    document.getElementById("modal-almacenado").style.display = "block";
+  }
+
+  function cerrarModalAlmacenado() {
+    document.getElementById("modal-almacenado").style.display = "none";
+  }
+
+  // También cerrar al hacer clic fuera del modal
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById("modal-almacenado");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+   <!-- Modal: Autorizar -->
+<div id="modal-autorizar" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalAutorizar()">&times;</span>
+    <h2>Autorización</h2>
+    <br> <br>
+    <h3>¿Está seguro?</h3>
+    <br> <br>
+    <button type="submit" class="btn-add" onclick="cerrarModalAutorizar()">Si</button>
+    <button type="submit" class="btn-add" onclick="cerrarModalAutorizar()">No</button>
+</div>
+
+
+
+  </div>
+</div>
+<script>
+  function abrirModalAutorizar() {
+    document.getElementById("modal-autorizar").style.display = "block";
+  }
+
+  function cerrarModalAutorizar() {
+    document.getElementById("modal-autorizar").style.display = "none";
+  }
+
+  // También cerrar al hacer clic fuera del modal
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById("modal-autorizar");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+</body>
+</html>

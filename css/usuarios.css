@@ -1,0 +1,68 @@
+.usuarios-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  font-family: sans-serif;
+}
+
+.usuarios-container h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.acciones-superiores {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.barra-busqueda {
+  width: 60%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-agregar {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-agregar:hover {
+  background-color: #0069d9;
+}
+
+.tabla-usuarios {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-usuarios th, .tabla-usuarios td {
+  padding: 0.8rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.tabla-usuarios th {
+  background-color: #f8f8f8;
+}
+
+.btn-accion {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.btn-accion:hover {
+  opacity: 0.7;
+}
