@@ -88,3 +88,17 @@ button:hover {
   background-color: #0056b3;
 }
 
+h1, h2, .login-container {
+  display: block;
+  width: 100%;
+  margin: 10px 0; /* separa los elementos */
+}
+
+body {
+  display: flex;
+  flex-direction: column; /* apila los elementos */
+  align-items: center; /* centra el contenido */
+  font-family: Arial, sans-serif;
+}
+
+
